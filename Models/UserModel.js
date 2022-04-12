@@ -23,7 +23,14 @@ const userSchema = mongoose.Schema({
         type:String,
         required:[true,"password is required"]
     },
-
+    role:{
+        type:Number,
+        default:0
+    },
+    cart:{
+        type:Array,
+        default:[]
+    },
     date:{
         type:Date,
         default:Date.now

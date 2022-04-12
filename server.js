@@ -3,6 +3,9 @@ require('dotenv').config()
 const cors= require('cors')
 const mongoose = require('mongoose');
 const authRoutes = require('./Routes/Authroute')
+const adminRoutes = require("./Routes/categoryRouter")
+const uploadRoutes = require("./Routes/upload")
+const productRoutes = require("./Routes/productRouter")
 const app = express();
 const cookieParser = require("cookie-parser");
 const fileUpload = require("express-fileupload");
@@ -22,12 +25,17 @@ app.use(express.json())
 
 app.use('/',authRoutes);
 
+app.use('/admin',adminRoutes)
+
+app.use("/api",uploadRoutes)
+
+app.use("/checkproducts",productRoutes)
 
 const URI = process.env.MONGODB_URL
 
 mongoose.connect(URI,{
     useNewUrlparser:true,
-    useUnifiedTopology:true,
+    useUnifiedTopology:true
     // useCreateIndex:true,
     // useFindAndModify:false
 
@@ -39,9 +47,6 @@ mongoose.connect(URI,{
     console.log(err);
 })
   
-
-
-
 app.listen(4000,(req,res)=>{
     console.log("server 4000 is running...")
 })
