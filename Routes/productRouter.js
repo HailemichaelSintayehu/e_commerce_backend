@@ -10,7 +10,7 @@ router.route("/products")
 
 router.route("/products/:id")
    .delete(auth,authAdmin,productCtrl.deleteProducts)
-   .put(auth,authAdmin,productCtrl.updateProducts)
+   .put(auth,authAdmin,productCtrl.updateProducts)  
 
 
 module.exports = router;
