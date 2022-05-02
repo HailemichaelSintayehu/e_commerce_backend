@@ -4,9 +4,9 @@ const cloudinary = require('cloudinary');
 
 const fs = require("fs")
  
- const auth = require("../Middlewares/auth")
+//  const auth = require("../Middlewares/auth")
 
- const authAdmin = require("../Middlewares/authAdmin")
+//  const authAdmin = require("../Middlewares/authAdmin")
 
 
  cloudinary.config({
@@ -15,7 +15,7 @@ const fs = require("fs")
      api_secret:process.env.CLOUD_API_SECRET,
      secure:true
  })
- router.post('/upload',auth,authAdmin,(req,res)=>{ 
+ router.post('/upload',(req,res)=>{ 
      try {
 
          if(!req.files || Object.keys(req.files).length===0){
@@ -43,7 +43,7 @@ const fs = require("fs")
      }
  })
 
- router.post("/destroy",auth,authAdmin,(req,res)=>{
+ router.post("/destroy",(req,res)=>{
      try {
          const {public_id} = req.body;
          if(!public_id){

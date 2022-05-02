@@ -54,7 +54,7 @@ register: async (req, res) => {
  
 
     //   res.json({ msg: "Register Success!" });
-      res.json({ accesstoken }); 
+      res.json({ accesstoken, refreshtoken }); 
     } catch (error) {
       return res.status(500).json({ msg: error.message });
     }
@@ -101,7 +101,7 @@ login: async (req, res) => {
             httpOnly: true,
             path: "/refresh_token",
         });
-        res.json({ accesstoken });
+        res.json({ accesstoken, refreshtoken });
         //   res.json({ msg: "Login success!" });
     } catch (error) {
         return res.status(500).json({ msg: error.message });
@@ -117,7 +117,7 @@ logout: async (req, res) => {
 },
 refreshToken: async (req, res) => {
   try {
-    const rf_token = req.cookies.refreshtoken;
+    const rf_token = req.headers.refreshtoken;
     console.log(rf_token);
     if (!rf_token) {
       return res.status(400).json({ msg: "please login now!" });
@@ -135,7 +135,7 @@ refreshToken: async (req, res) => {
 },
 getUser: async (req, res) => {
   try {
-    const user = await UserModel.findById(req.user.id).select("-password")
+    const user = await UserModel.findById(req.user.id).select("-password ")
     if(!user){
       return res.status(400).json({msg:"User does not exist"})
     }
@@ -145,6 +145,24 @@ getUser: async (req, res) => {
 
   } catch (error) {
     res.status(500).json({ msg: error.message });
+  }
+},
+addCart:async (req,res) =>{
+  try {
+    const user = await UserModel.findById(req.user.id);
+    if(!user){
+      return res.status(400).json({msg:"user does not exist"})
+    }
+    await UserModel.findByIdAndUpdate({_id:req.user.id},{
+      cart:req.body.cart
+    })
+
+    return res.json({msg:"Added to cart"})
+
+  } catch (error) {
+
+    return res.status(400).json({msg:""})
+    
   }
 },
   forgotPassword: async (req, res) => {

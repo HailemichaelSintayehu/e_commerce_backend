@@ -20,7 +20,9 @@ app.use(
     credentials: true
 }))
 app.use(express.urlencoded());
+
 app.use(cookieParser());
+
 app.use(express.json())
 
 app.use('/',authRoutes);
@@ -35,7 +37,7 @@ const URI = process.env.MONGODB_URL
 
 mongoose.connect(URI,{
     useNewUrlparser:true,
-    useUnifiedTopology:true
+    useUnifiedTopology:false
     // useCreateIndex:true,
     // useFindAndModify:false
 
