@@ -2,6 +2,7 @@ const bcrypt = require("bcryptjs");
 require("body-parser");
 const jwt = require("jsonwebtoken");
 const UserModel = require("../Models/UserModel");
+const productsModel = require("../Models/productsModel");
 const { CLIENT_URL } = process.env;
 // const sendMail = require('./sendMaill')
 const useCtrl = {
@@ -164,6 +165,17 @@ addCart:async (req,res) =>{
     return res.status(400).json({msg:""})
     
   }
+},
+history:async (req,res) =>{
+  try {
+    const history = await productsModel.find({_id:req.products.id})
+
+    res.json(history)
+
+
+  } catch (error) {
+    res.status(400).json({msg:"Please buy first"})
+}
 },
   forgotPassword: async (req, res) => {
     try {

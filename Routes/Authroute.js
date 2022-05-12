@@ -23,12 +23,13 @@ router.get("/refresh_token",useCtrl.refreshToken)
 
 router.get("/infor" ,auth,useCtrl.getUser)
 
-router.patch("/addcart ",auth,useCtrl.addCart)
+router.patch("/addcart",auth,useCtrl.addCart)
 
 router.post("/forgotpassword",useCtrl.forgotPassword)
 
 router.post("/reset",auth,useCtrl.resetPassword)
 
+router.get("/history",auth,useCtrl.history)
 
 router.get("/all_info",auth,authAdmin,useCtrl.getUsersAllInfo)
 
